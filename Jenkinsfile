@@ -22,22 +22,15 @@ pipeline {
             }
         }
 
+        
         stage('Docker login') {
             steps {
-                // Copia el archivo config.json al directorio de trabajo
-                sh 'cp config.json .'
-                // Utiliza el archivo config.json para el login de Docker
-                sh 'docker login acrDevopsPoel1.azurecr.io'
-            }
-        }
 
-        // stage('Docker login') {
-        //     steps {
-        //         withCredentials([azureServicePrincipal('poel-service-principal')]) {
-        //             sh 'docker login acrDevopsPoel1.azurecr.io -u $ID_DEL_SERVICE_PRINCIPAL -p $SECRET_DEL_SERVICE_PRINCIPAL'
-        //         }           
-        //     }
-        // }
+                sh 'sudo docker login acrDevopsPoel1.azurecr.io -u acrDevopsPoel1 -p Sy0E28H+apsVq7MobqBRuLzn2QWSkmB4YwX6BUtf18+ACRCc2OBf'
+                // withCredentials([azureServicePrincipal('poel-service-principal')]) {
+                //     sh 'docker login acrDevopsPoel1.azurecr.io -u $ID_DEL_SERVICE_PRINCIPAL -p $SECRET_DEL_SERVICE_PRINCIPAL'
+            }           
+        }
 
         stage('Docker tag & build') {
             steps {
@@ -49,9 +42,9 @@ pipeline {
 
         stage('ACR login & push') {
             steps {
-                sh 'az acr login --name acrdevopspoel1'       
+                sh 'az acr login --name acrDevopsPoel1'       
 
-                sh 'docker push aacrdevopspoel1.azurecr.io/spring-openjdk:11'
+                sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
             }
         }
     }
