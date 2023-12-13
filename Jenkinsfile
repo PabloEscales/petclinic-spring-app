@@ -26,7 +26,7 @@ pipeline {
         stage('Docker login') {
             steps {
 
-                sh 'sudo docker login acrDevopsPoel1.azurecr.io -u acrDevopsPoel1 -p Sy0E28H+apsVq7MobqBRuLzn2QWSkmB4YwX6BUtf18+ACRCc2OBf'
+                sh 'docker login acrDevopsPoel1.azurecr.io -u acrDevopsPoel1 -p Sy0E28H+apsVq7MobqBRuLzn2QWSkmB4YwX6BUtf18+ACRCc2OBf'
                 // withCredentials([azureServicePrincipal('poel-service-principal')]) {
                 //     sh 'docker login acrDevopsPoel1.azurecr.io -u $ID_DEL_SERVICE_PRINCIPAL -p $SECRET_DEL_SERVICE_PRINCIPAL'
             }           
