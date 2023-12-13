@@ -25,7 +25,7 @@ pipeline {
         stage('Docker login') {
             steps {
                 // Copia el archivo config.json al directorio de trabajo
-                sh 'cp /config.json .'
+                sh 'cp config.json .'
                 // Utiliza el archivo config.json para el login de Docker
                 sh 'docker login acrDevopsPoel1.azurecr.io'
             }
