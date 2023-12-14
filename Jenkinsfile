@@ -26,11 +26,10 @@ pipeline {
         stage('Docker login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'eb72bbbc-c0e2-4aa3-ada1-6630e1363a96', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'docker login acrDevopsPoel1.azurecr.io -u $DOCKER_USER --password-stdin $DOCKER_PASS'
-                    // script {
-                    //     def dockerLoginCmd = "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin acrDevopsPoel1.azurecr.io"
-                    //     sh dockerLoginCmd
-                    // }
+                    script {
+                        def dockerLoginCmd = "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin acrDevopsPoel1.azurecr.io"
+                        sh dockerLoginCmd
+                    }
                 }
             }
         }
