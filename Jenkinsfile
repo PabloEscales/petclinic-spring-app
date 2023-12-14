@@ -27,7 +27,7 @@ pipeline {
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'eb72bbbc-c0e2-4aa3-ada1-6630e1363a96', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'sudo docker login -u $DOCKER_USER -p $DOCKER_PASS'
 
                 // withCredentials([azureServicePrincipal('poel-service-principal')]) {
                 //     sh 'docker login acrDevopsPoel1.azurecr.io -u $ID_DEL_SERVICE_PRINCIPAL -p $SECRET_DEL_SERVICE_PRINCIPAL'
