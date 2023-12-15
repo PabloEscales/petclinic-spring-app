@@ -22,8 +22,12 @@ pipeline {
             }
         }
 
+        
         stage('Docker login') {
-            steps {
+            step 1 ('Add Jenkins to Docker group') {
+                sh 'usermod -aG docker jenkins'
+            }            
+            steps 2 {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'acrDocker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         def dockerLoginCmd = "echo \$DOCKER_PASS | docker login acrDevopsPoel1.azurecr.io -u \$DOCKER_USER --password-stdin"
