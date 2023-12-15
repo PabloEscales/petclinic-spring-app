@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Add Jenkins to Docker group') {
+            steps {
+                sh 'usermod -aG docker jenkins'
+            }
+        }
+
         stage('Git Checkout') {
             steps { 
                 git branch: 'main', url: 'https://github.com/PabloEscales/petclinic-spring-app.git'
@@ -22,12 +28,8 @@ pipeline {
             }
         }
 
-        
         stage('Docker login') {
-            step 1 ('Add Jenkins to Docker group') {
-                sh 'usermod -aG docker jenkins'
-            }            
-            steps 2 {
+            steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'acrDocker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         def dockerLoginCmd = "echo \$DOCKER_PASS | docker login acrDevopsPoel1.azurecr.io -u \$DOCKER_USER --password-stdin"
@@ -39,16 +41,14 @@ pipeline {
 
         stage('Docker tag & build') {
             steps {
-              sh 'docker build -t spring-openjdk:11 .'
-
-              sh 'docker tag spring-openjdk:11 acrDevopsPoel1.azurecr.io/spring-openjdk:11'
+                sh 'docker build -t spring-openjdk:11 .'
+                sh 'docker tag spring-openjdk:11 acrDevopsPoel1.azurecr.io/spring-openjdk:11'
             }
         }
 
         stage('ACR login & push') {
             steps {
-                sh 'az acr login --name acrDevopsPoel1'       
-
+                sh 'az acr login --name acrDevopsPoel1'
                 sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
             }
         }
