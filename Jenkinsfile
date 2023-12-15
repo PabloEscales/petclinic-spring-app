@@ -24,6 +24,8 @@ pipeline {
 
         stage('Docker login') {
             steps {
+                sh 'sudo usermod -aG docker jenkins'
+                sh 'newgrp docker'
                 sh 'docker login acrDevopsPoel1.azurecr.io -u acrDevopsPoel1 -p XPfNs7vSlBl3tIgrlV8wVoPf6w6GNlCB4rKRxrN0uN+ACRDWlult'
             }
         }
