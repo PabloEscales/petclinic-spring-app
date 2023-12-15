@@ -1,21 +1,13 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Add Jenkins to Docker group') {
-            steps {
-                sh 'sudo usermod -aG docker jenkins'
-                sh 'newgrp docker'
-            }
-        }
-
         stage('Git Checkout') {
             steps { 
                 git branch: 'main', url: 'https://github.com/PabloEscales/petclinic-spring-app.git'
             }
         }
 
-        stage('Maven') {
+        stage('Build Maven') {
             steps {
                 sh 'mvn clean package'
             }
