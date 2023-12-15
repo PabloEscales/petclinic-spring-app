@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Azure Service Princial login') {
+        stage('Azure Service Principal login') {
             steps {
                 withCredentials([azureServicePrincipal('poel-service-principal')]) {
                     sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
@@ -24,23 +24,20 @@ pipeline {
 
         stage('Docker login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'acrDocker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    script {
-                        sh 'usermod -aG docker jenkins'
-                        sh 'newgrp docker'
-                        def dockerLoginCmd = "docker login acrDevopsPoel1.azurecr.io -u \$DOCKER_USER -p \$DOCKER_PASS"
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'acrDocker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        def dockerLoginCmd = "echo \$DOCKER_PASS | docker login acrDevopsPoel1.azurecr.io -u \$DOCKER_USER --password-stdin"
                         sh dockerLoginCmd
                     }
                 }
             }
         }
 
-              
         stage('Docker tag & build') {
             steps {
-              sh 'docker build spring-openjdk:11'
+              sh 'docker build -t spring-openjdk:11 .'
 
-              sh 'docker tag spring-openjdk:11 acrdevopspoel1.azurecr.io/spring-openjdk:11'
+              sh 'docker tag spring-openjdk:11 acrDevopsPoel1.azurecr.io/spring-openjdk:11'
             }
         }
 
