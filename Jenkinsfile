@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Add Jenkins to Docker group') {
             steps {
-                sh 'usermod -aG docker jenkins'
+                sh 'sudo usermod -aG docker jenkins'
             }
         }
 
