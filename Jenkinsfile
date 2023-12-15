@@ -5,6 +5,7 @@ pipeline {
         stage('Add Jenkins to Docker group') {
             steps {
                 sh 'sudo usermod -aG docker jenkins'
+                sh 'newgrp docker'
             }
         }
 
