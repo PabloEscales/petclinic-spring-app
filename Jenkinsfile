@@ -26,6 +26,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'acrDocker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
+                        sh 'usermod -aG docker jenkins'
+                        sh 'newgrp docker'
                         def dockerLoginCmd = "docker login acrDevopsPoel1.azurecr.io -u \$DOCKER_USER -p \$DOCKER_PASS"
                         sh dockerLoginCmd
                     }
