@@ -52,8 +52,13 @@ pipeline {
 
         stage('ACR login & push') {
             steps {
-                sh 'docker login acrDevopsPoel1.azurecr.io -u $DOCKER_USER -p $DOCKER_PASS'
-                sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'acrDocker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        def dockerLoginCmd = "echo \$DOCKER_PASS | docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11"
+                        sh dockerLoginCmd
+                        sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
+                    }
+                }
             }
         }
 
