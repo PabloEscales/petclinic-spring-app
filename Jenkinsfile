@@ -56,5 +56,14 @@ pipeline {
                 sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
             }
         }
+
+        stage('Remove Docker Permissions') {
+            steps {
+                script {
+                    sh 'sudo chmod 660 /var/run/docker.sock'
+                    sh 'sudo apt update'
+                }
+            }
+        }
     }
 }
