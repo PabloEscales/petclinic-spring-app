@@ -4,8 +4,7 @@ metadata:
   name: petclinic-ingress
 spec:
   rules:
-  - host: 20.54.48.250
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
@@ -13,4 +12,4 @@ spec:
           service:
             name: petclinic-service
             port:
-              number: 80  # Puerto del servicio expuesto por el Ingress
+              number: 80
