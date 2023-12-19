@@ -57,6 +57,14 @@ pipeline {
             }
         }
 
+        stage('Deploy with Helm') {
+            steps {
+                script {
+                    sh 'helm install petclinic helm-app/helmpetlcinic --set ingress.host=petclinic.example.com --set ingress.ip=20.54.48.250'
+                }
+            }
+        }
+
         stage('Remove Docker Permissions') {
             steps {
                 script {
