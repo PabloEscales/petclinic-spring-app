@@ -4,7 +4,7 @@ metadata:
   name: petclinic-ingress
 spec:
   rules:
-  - host: petclinic.example.com
+  - host: 20.54.48.250
     http:
       paths:
       - path: /
