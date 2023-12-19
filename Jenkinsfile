@@ -22,6 +22,14 @@ pipeline {
             }
         }
 
+        stage('Docker Permissions') {
+            steps {
+                script {
+                    sh 'sudo chmod 666 /var/run/docker.sock'
+                }
+            }
+        }
+
         stage('Docker login') {
             steps {
                 script {
