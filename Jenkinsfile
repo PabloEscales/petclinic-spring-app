@@ -52,6 +52,7 @@ pipeline {
             steps {
                 sh 'az acr login --name acrDevopsPoel1'
                 sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
+                sh 'az acr repository list --name acrDevopsPoel1'
             }
         }
     }
