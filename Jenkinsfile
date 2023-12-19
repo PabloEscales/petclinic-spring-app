@@ -60,7 +60,7 @@ pipeline {
         stage('Deploy with Helm') {
             steps {
                 script {
-                    sh 'helm install petclinic helm-app/helmpetlcinic'
+                    sh 'helm install petclinic-new helm-app/helmpetlcinic'
                 }
             }
         }
