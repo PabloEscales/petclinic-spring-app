@@ -52,7 +52,7 @@ pipeline {
 
         stage('ACR login & push') {
             steps {
-                sh 'az acr login --name acrDevopsPoel1'
+                sh 'docker login acrDevopsPoel1.azurecr.io -u $DOCKER_USER -p $DOCKER_PASS'
                 sh 'docker push acrDevopsPoel1.azurecr.io/spring-openjdk:11'
             }
         }
@@ -60,7 +60,7 @@ pipeline {
         stage('Deploy with Helm') {
             steps {
                 script {
-                    sh 'helm install petclinic-lastdance helm-app/helmpetlcinic'
+                    sh 'helm install petclinic-lastdanceok helm-app/helmpetlcinic'
                 }
             }
         }
