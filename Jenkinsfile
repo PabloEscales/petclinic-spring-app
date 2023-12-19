@@ -27,7 +27,7 @@ pipeline {
                 script {
                     sh 'sudo usermod -aG docker jenkins'
                     sh 'sudo chown :docker /var/run/docker.sock'
-                    sh 'sudo chmod 660 /var/run/docker.sock'
+                    sh 'sudo chmod 666 /var/run/docker.sock'
                 }
             }
         }
